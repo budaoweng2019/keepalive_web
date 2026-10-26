@@ -2,21 +2,22 @@ name: 多站4小时轮询保活
 
 on:
   schedule:
-    - cron: '0 0,4,8,12,16,20 * * *'   # 每天 0/4/8/12/16/20 点，共6次
+    - cron: '0 0,4,8,12,16,20 * * *'   # 北京时间每天0/4/8/12/16/20点各跑一次，共6次
       timezone: 'Asia/Shanghai'
-  workflow_dispatch:
+  workflow_dispatch:                    # 保留手动测试按钮
 
 permissions:
-  contents: write          # 允许提交空commit用于续期
+  contents: write                       # 允许提交空commit用于续期
 
 jobs:
   # 任务一：每4小时访问一次所有站点
   ping-sites:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04               # 锁定系统版本，不会弹出Ubuntu迁移提示
     strategy:
-      fail-fast: false
+      fail-fast: false                  # 单个站失败不影响其他站
       matrix:
         include:
+          # 👇👇👇 这里改成你自己的网站，格式照抄，想加几个加几个
           - name: "AlcHosting主机01"
             url: "https://winner.alc.onl/"
           - name: "Aeonfree主机01"
@@ -24,7 +25,10 @@ jobs:
           - name: "serv00主机博客01"
             url: "https://wengbudao.serv00.net/"
           - name: "serv00主机博客02"
-            url: "https://winner.serv00.net//"
+            url: "https://winner.serv00.net/"
+          # - name: "其他站点"
+          #   url: "https://其他域名/"
+          # 👆👆👆 新站复制上面两行往下加就行
     steps:
       - name: 访问「${{ matrix.name }}」
         run: |
