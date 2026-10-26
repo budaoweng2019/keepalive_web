@@ -1,0 +1,41 @@
+name: 多站4小时轮询保活
+on:
+  schedule:
+    - cron: '0 0,4,8,12,16,20 * * *'   # 北京时间每天0/4/8/12/16/20点各跑一次，共6次
+      timezone: 'Asia/Shanghai'
+  workflow_dispatch:                    # 保留手动测试按钮
+
+jobs:
+  ping-sites:
+    runs-on: ubuntu-24.04              # 锁定系统版本，不会弹出Ubuntu迁移提示
+    strategy:
+      fail-fast: false                 # 单个站失败不影响其他站
+      matrix:
+        include:
+          # 👇👇👇 这里改成你自己的网站，格式照抄，想加几个加几个
+          - name: "AlcHosting主机01"
+            url: "https://winner.alc.onl/"
+          - name: "Aeonfree主机01"
+            url: "https://winner.zya.me/"
+          - name: "serv00主机博客01"
+            url: "https://wengbudao.serv00.net/"
+          - name: "serv00主机博客02"
+            url: "https://winner.serv00.net//"
+          # - name: "其他站点"
+          #   url: "https://其他域名/"
+          # 👆👆👆 新站复制上面三行往下加就行
+    steps:
+      - name: 访问「${{ matrix.name }}」
+        run: |
+          curl -sS -L --max-time 30 -o /dev/null -w "${{ matrix.name }} → HTTP状态码: %{http_code}\n" \
+            -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36" \
+            "${{ matrix.url }}"
+
+      # 👇 公共仓库自动续期：45天无提交自动打空commit，防止被GitHub自动停用
+      - name: 仓库自动保活
+        uses: actions/checkout@v4
+      - name: 续期刷新活跃度
+        uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          time_elapsed: "45"           # 超过45天无活动才提交，平时静默不产生多余记录
+          commit_message: "auto: 仓库保活刷新"
