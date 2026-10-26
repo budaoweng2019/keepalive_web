@@ -125,6 +125,7 @@ README.md                         本说明文件
 | `404` | 地址写错 | 检查网址路径是否正确 |
 | `000` / 连接超时 | 网站暂时打不开 | 在浏览器里手动访问一次确认；偶发失败下次会自动恢复 |
 | 报错含 `Repository access blocked` | 引用了已被停用的第三方 Action | 本项目不依赖第三方 Action，如自行添加过请移除 |
+| 警告含 `Node.js 20 is deprecated` | 引用的 Action 版本过旧（提示级，非错误） | 把 `actions/checkout@v4` 改成 `@v5` 即可消除 |
 | 报错含 `Permission denied`（续期任务） | 仓库没有写权限 | 参见"快速开始"第 2 步，把 Workflow permissions 改为 Read and write |
 | 到点没有触发 | GitHub 定时任务延迟 | 高负载时可能延迟十几分钟，属正常现象，不影响保活效果 |
 
