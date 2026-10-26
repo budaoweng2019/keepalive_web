@@ -20,7 +20,7 @@ jobs:
           - name: "serv00主机博客01"
             url: "https://wengbudao.serv00.net/"
           - name: "serv00主机博客02"
-            url: "https://winner.serv00.net//"
+            url: "https://winner.serv00.net/"
           # - name: "其他站点"
           #   url: "https://其他域名/"
           # 👆👆👆 新站复制上面三行往下加就行
