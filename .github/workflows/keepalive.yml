@@ -18,14 +18,12 @@ jobs:
       matrix:
         include:
           # 👇👇👇 这里改成你自己的网站，格式照抄，想加几个加几个
+          - name: "serv00主机winner_01"
+            url: "https://class6.cngz.eu.org/"
           - name: "AlcHosting主机01"
             url: "https://winner.alc.onl/"
           - name: "Aeonfree主机01"
             url: "https://winner.zya.me/"
-          - name: "serv00主机博客01"
-            url: "https://wengbudao.serv00.net/"
-          - name: "serv00主机博客02"
-            url: "https://winner.serv00.net/"
           # - name: "其他站点"
           #   url: "https://其他域名/"
           # 👆👆👆 新站复制上面两行往下加就行
