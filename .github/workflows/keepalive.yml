@@ -1,8 +1,8 @@
-name: 多站4小时轮询保活
+name: 多站6小时轮询保活
 
 on:
   schedule:
-    - cron: '0 0,4,8,12,16,20 * * *'   # 北京时间每天0/4/8/12/16/20点各跑一次，共6次
+    - cron: '27 1,7,13,19 * * *'   # 北京时间每天1/7/13/19点的27分各跑一次，共4次
       timezone: 'Asia/Shanghai'
   workflow_dispatch:                    # 保留手动测试按钮
 
@@ -10,7 +10,7 @@ permissions:
   contents: write                       # 允许提交空commit用于续期
 
 jobs:
-  # 任务一：每4小时访问一次所有站点
+  # 任务一：每6小时访问一次所有站点
   ping-sites:
     runs-on: ubuntu-24.04               # 锁定系统版本，不会弹出Ubuntu迁移提示
     strategy:
