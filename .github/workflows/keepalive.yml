@@ -28,10 +28,15 @@ jobs:
     steps:
       - name: 访问「${{ matrix.name }}」
         run: |
-          curl -sS -L --max-time 30 -o /dev/null \
-            -w "${{ matrix.name }} → HTTP状态码: %{http_code}\n" \
+          curl -sS -L --max-time 30 -o response.html \
+            -w "${{ matrix.name }} → HTTP状态码: %{http_code}\n最终访问地址: %{url_effective}\n响应类型: %{content_type}\n响应大小: %{size_download} bytes\n" \
             -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36" \
             "${{ matrix.url }}"
+
+          echo "========== 响应内容前500字符 =========="
+          head -c 500 response.html
+          echo ""
+          echo "========== 测试结束 =========="
 
   # 任务二：公共仓库自动续期（纯系统命令，不依赖任何第三方 Action）
   repo-keepalive:
