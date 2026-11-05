@@ -18,8 +18,8 @@ jobs:
       matrix:
         include:
           # 👇👇👇 这里改成你自己的网站，格式照抄，想加几个加几个
-          - name: "AlcHosting主机01"
-            url: "https://winner.alc.onl/"
+          - name: "养老"
+            url: "https://budaoweng.eu.org/yl/"
           - name: "Aeonfree主机01"
             url: "https://winner.zya.me/"
           # - name: "其他站点"
