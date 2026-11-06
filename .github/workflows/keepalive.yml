@@ -2,7 +2,7 @@ name: 多站6小时轮询保活
 
 on:
   schedule:
-    - cron: '27 1,7,13,19 * * *'   # 北京时间每天1/7/13/19点的27分各跑一次，共4次
+    - cron: '27 1/6 * * *'   # 从北京时间每天凌晨1点27分开始，每隔6小时跑一次，共4次
       timezone: 'Asia/Shanghai'
   workflow_dispatch:                    # 保留手动测试按钮
 
